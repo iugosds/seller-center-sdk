@@ -18,6 +18,9 @@ class RequestFactory
         array $headers = [],
         string $body = null
     ): RequestInterface {
+
+        //Added this so Guzzle is one of the first options discovered by this factory
+        Psr17FactoryDiscovery::prependStrategy(\Http\Discovery\Strategy\CommonClassesStrategy::class);
         $request = Psr17FactoryDiscovery::findRequestFactory()->createRequest($method, $uri);
 
         foreach ($headers as $name => $value) {
